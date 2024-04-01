@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       }
 
       resources :users, only: :update
+      resources :insurance_profiles, only: :create
     end
   end
 end
