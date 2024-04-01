@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# app/controllers/api/v1/insurance_profiles_controller.rb
 module Api
   module V1
     class InsuranceProfilesController < ApplicationController
