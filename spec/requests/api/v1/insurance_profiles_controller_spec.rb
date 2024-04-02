@@ -58,4 +58,37 @@ RSpec.describe 'Api::V1::InsuranceProfilesController', type: :request do
       end
     end
   end
+
+  describe 'GET #calculate_risk_profile' do
+    context 'when success' do
+      it 'returns a 200 status code and risk profile' do
+        user = create(:user)
+        insurance_profile = create(:insurance_profile, user: user)
+
+        expected_response_body = {
+          auto: 'economico',
+          disability: 'inelegivel',
+          home: 'economico',
+          life: 'padrao'
+        }
+
+        get "/api/v1/insurance_profiles/#{insurance_profile.id}/calculate_risk_profile", headers: get_headers(user)
+
+        expect(response).to have_http_status(:ok)
+        expect(json_body).to eq(expected_response_body)
+      end
+    end
+
+    context 'when errors' do
+      it 'returns a 404 status code and error message' do
+        user = create(:user)
+        insurance_profile = create(:insurance_profile, user: user)
+
+        get '/api/v1/insurance_profiles/999/calculate_risk_profile', headers: get_headers(user)
+
+        expect(response).to have_http_status(:not_found)
+        expect(json_body).to eq({ :message=>"record not found" })
+      end
+    end
+  end
 end
