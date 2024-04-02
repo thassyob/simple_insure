@@ -17,7 +17,7 @@ RSpec.describe InsuranceProfile, type: :model do
 
   it 'validates ownership_status enum within house' do
     user = create(:user)
-    profile = create(:insurance_profile, user: user)
+    profile = create(:insurance_profile, user:)
 
     expect(profile.house[:ownership_status]).to eq('owned')
   end

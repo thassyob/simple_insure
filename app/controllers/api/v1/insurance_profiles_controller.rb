@@ -17,7 +17,7 @@ module Api
         risk_profile = InsuranceProfileCalculatorService.new(params[:id]).calculate_profile
 
         render json: risk_profile,
-        status: :ok
+               status: :ok
       end
 
       private

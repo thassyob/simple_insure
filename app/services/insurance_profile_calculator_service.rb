@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class InsuranceProfileCalculatorService
   AGE_THRESHOLD = 30
   INCOME_THRESHOLD = 200_000
@@ -18,14 +20,14 @@ class InsuranceProfileCalculatorService
   private
 
   def calculate_base_risk_score
-    base_score = 0
+    base_score = 3
     base_score -= age_discount
     base_score -= income_discount
     base_score += rented_house_score
     base_score += dependents_score
     base_score += married_score
     base_score += recent_vehicle_score
-  
+
     base_score
   end
 
@@ -33,7 +35,7 @@ class InsuranceProfileCalculatorService
     return 2 if @insurance_profile.age < AGE_THRESHOLD
     return 1 if @insurance_profile.age >= AGE_THRESHOLD && @insurance_profile.age <= 40
 
-    0
+    3
   end
 
   def income_discount
@@ -70,7 +72,8 @@ class InsuranceProfileCalculatorService
   def determine_insurance_profile(type, risk_score)
     case type
     when 'auto', 'home'
-      determine_generic_insurance_profile(type, risk_score, [0..1, 'economico'], [2..3, 'padrao'], [4..Float::INFINITY, 'avancado'])
+      determine_generic_insurance_profile(type, risk_score, [0..1, 'economico'], [2..3, 'padrao'],
+                                          [4..Float::INFINITY, 'avancado'])
     when 'disability'
       if @insurance_profile.age > 60 || @insurance_profile.income.zero?
         'inelegivel'
@@ -82,14 +85,12 @@ class InsuranceProfileCalculatorService
     end
   end
 
-  def determine_generic_insurance_profile(type, risk_score, *conditions)
+  def determine_generic_insurance_profile(_type, risk_score, *conditions)
     conditions.each do |condition|
       range = condition.first
       profile = condition.last
-  
-      if range.cover?(risk_score)
-        return profile
-      end
+
+      return profile if range.cover?(risk_score)
     end
   end
 end

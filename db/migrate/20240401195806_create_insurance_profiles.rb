@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateInsuranceProfiles < ActiveRecord::Migration[6.1]
   def change
     create_table :insurance_profiles do |t|
