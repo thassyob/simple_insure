@@ -9,5 +9,6 @@ FactoryBot.define do
     risk_questions { [0, 1, 0] }
     house { { ownership_status: 'owned' } }
     vehicle { { year: 2018 } }
+    user { nil }
   end
 end

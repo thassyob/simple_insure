@@ -9,7 +9,9 @@ Rails.application.routes.draw do
       }
 
       resources :users, only: :update
-      resources :insurance_profiles, only: :create
+      resources :insurance_profiles, only: [:create] do
+        get 'calculate_risk_profile', on: :member
+      end
     end
   end
 end

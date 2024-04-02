@@ -1,24 +1,13 @@
-# README
+SIMPLE INSURE
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Installation and running
 
-Things you may want to cover:
+set the rails master key as mentioned below or the app will not start
+clone project
+bundle install
+rails db:create db:migrate
+rails db:seed
+rails s
+Development and test environment
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+DB_USERNAME= DB_PASSWORD= DB_HOST=localhost
