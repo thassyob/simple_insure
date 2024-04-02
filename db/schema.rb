@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_04_01_195806) do
+ActiveRecord::Schema.define(version: 2024_04_02_012816) do
 
   create_table "insurance_profiles", force: :cascade do |t|
     t.integer "age", null: false
@@ -18,10 +18,12 @@ ActiveRecord::Schema.define(version: 2024_04_01_195806) do
     t.integer "income", null: false
     t.integer "marital_status", null: false
     t.boolean "risk_questions", default: true, null: false
-    t.json "house", default: {}, null: false
-    t.json "vehicle", default: {}, null: false
+    t.json "house", default: "\"{}\"", null: false
+    t.json "vehicle", default: "\"{}\"", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_insurance_profiles_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -49,4 +51,5 @@ ActiveRecord::Schema.define(version: 2024_04_01_195806) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "insurance_profiles", "users"
 end
